@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { HiMagnifyingGlass } from "react-icons/hi2";
+// import { HiMagnifyingGlass } from "react-icons/hi2";
 
 export default function InputBar() {
   return (

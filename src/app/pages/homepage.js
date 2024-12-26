@@ -3,35 +3,73 @@ import InputBar from "../components/input_bar";
 import NavBar from "../components/navbar";
 
 export default function HomePage({ isHomePage, setHomePage }) {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [placeholder, setPlaceholder] = useState(
+    "Type your search query here..."
+  );
+
+  // Mock search function
+  const handleSearch = () => {
+    if (query) {
+      // Mocking search results
+      setResults([
+        `Result for "${query}" - 1`,
+        `Result for "${query}" - 2`,
+        `Result for "${query}" - 3`,
+      ]);
+      setHomePage(1);
+    } else {
+      setPlaceholder("Please type some shit!");
+    }
+  };
   return (
-    <div className="bg-black min-h-screen text-white flex flex-col items-center justify-center">
-      <NavBar homePage={isHomePage} setHomePage={setHomePage} />
-      <div className="w-1/2 flex items-center">
-        <input
-          type="text"
-          className="flex-grow bg-gray-800 text-white p-4 rounded-l-lg focus:outline-none"
-          placeholder="輸入內容..."
-        />
-        <button
-          className="bg-gray-600 text-white px-6 py-4 rounded-r-lg hover:bg-gray-700"
-          onClick={() => setHomePage(1)}
-        >
-          SEND
-        </button>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-6">
+      {/* Header Section */}
+      <header className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-blue-600 mb-4">Search Engine</h1>
+        <p className="text-gray-600">
+          Find the information you need quickly and easily!
+        </p>
+      </header>
+
+      {/* Search Section */}
+      <div className="w-full max-w-2xl">
+        <div className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden">
+          <input
+            type="text"
+            className="w-full p-4 text-gray-800 focus:outline-none"
+            placeholder={placeholder}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button
+            className="px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 mt-6 w-1/2">
-        <button className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
-          幫我列出24小時內最熱門的文章
-        </button>
-        <button className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
-          機器學習
-        </button>
-        <button className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
-          ...
-        </button>
-        <button className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
-          ...
-        </button>
+
+      {/* Results Section */}
+      <div className="w-full max-w-2xl mt-8">
+        {results.length > 0 ? (
+          <ul className="bg-white shadow-lg rounded-lg divide-y divide-gray-200">
+            {results.map((result, index) => (
+              <li
+                key={index}
+                className="p-4 hover:bg-gray-100 transition-colors"
+              >
+                {result}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-600 text-center mt-4">
+            No results found. Try searching for something.
+          </p>
+        )}
       </div>
     </div>
   );
