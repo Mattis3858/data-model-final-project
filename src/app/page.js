@@ -4,13 +4,13 @@ import { useState } from "react";
 import HomePage from "./pages/homepage";
 import ResultPage from "./pages/results_page";
 export default function Home() {
-  const [homePage, setHomePage] = useState(0);
+  const [homePage, setHomePage] = useState(true);
   const [results, setResults] = useState([]);
   const [lookerStudio, setLookerStudio] = useState(false);
 
   return (
     <div>
-      {homePage === 0 ? (
+      {homePage === true ? (
         <HomePage
           isHomePage={homePage}
           setHomePage={setHomePage}
