@@ -6,6 +6,7 @@ import ResultPage from "./pages/results_page";
 export default function Home() {
   const [homePage, setHomePage] = useState(0);
   const [results, setResults] = useState([]);
+  const [lookerStudio, setLookerStudio] = useState(false);
 
   return (
     <div>
@@ -15,6 +16,8 @@ export default function Home() {
           setHomePage={setHomePage}
           results={results}
           setResults={setResults}
+          lookerStudio={lookerStudio}
+          setLookerStudio={setLookerStudio}
         />
       ) : (
         <ResultPage
@@ -22,6 +25,8 @@ export default function Home() {
           setHomePage={setHomePage}
           results={results}
           setResults={setResults}
+          lookerStudio={lookerStudio}
+          setLookerStudio={setLookerStudio}
         />
       )}
     </div>

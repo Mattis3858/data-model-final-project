@@ -7,6 +7,8 @@ export default function HomePage({
   setHomePage,
   results,
   setResults,
+  lookerStudio,
+  setLookerStudio,
 }) {
   const [query, setQuery] = useState("");
   const [placeholder, setPlaceholder] = useState(
@@ -29,7 +31,12 @@ export default function HomePage({
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <NavBar homePage={isHomePage} setHomePage={setHomePage} />
+      <NavBar
+        homePage={isHomePage}
+        setHomePage={setHomePage}
+        lookerStudio={lookerStudio}
+        setLookerStudio={setLookerStudio}
+      />
       {/* Header Section */}
       <header className="text-center mb-10 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">

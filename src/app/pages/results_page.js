@@ -6,39 +6,44 @@ export default function ResultPage({
   setHomePage,
   results,
   setResults,
-  lookerStudio = false,
+  lookerStudio,
   setLookerStudio,
 }) {
   const fake_api_results = [
     [
       {
         title: "qianlanwyd/paper-citation-ranking",
-        url: "lsakdlaskndl",
+        url: "https://github.com/",
         time: "2024/12/19  11:25",
         tag: ["asd", "skjdansd"],
       },
       {
         title: "qianlanwyd/paper-citation-ranking",
+        url: "https://github.com/",
         time: "2024/12/19  11:25",
         tag: ["asd", "skjdansd"],
       },
       {
         title: "qianlanwyd/paper-citation-ranking",
+        url: "https://github.com/",
         time: "2024/12/19  11:25",
         tag: ["asd", "skjdansd"],
       },
       {
         title: "qianlanwyd/paper-citation-ranking",
+        url: "https://github.com/",
         time: "2024/12/19  11:25",
         tag: ["asd", "skjdansd"],
       },
       {
         title: "qianlanwyd/paper-citation-ranking",
+        url: "https://github.com/",
         time: "2024/12/19  11:25",
         tag: ["asd", "skjdansd"],
       },
       {
         title: "qianlanwyd/paper-citation-ranking",
+        url: "https://github.com/",
         time: "2024/12/19  11:25",
         tag: ["asd", "skjdansd"],
       },
@@ -52,7 +57,12 @@ export default function ResultPage({
   return (
     <div className="min-h-screen bg-gray-100">
       {/* navbar */}
-      <NavBar homePage={isHomePage} setHomePage={setHomePage} />
+      <NavBar
+        homePage={isHomePage}
+        setHomePage={setHomePage}
+        lookerStudio={lookerStudio}
+        setLookerStudio={setLookerStudio}
+      />
       {/* main content */}
       <div className="result_content mt-10 flex justify-center">
         <div className="bg-slate-500 w-3/5 p-6 rounded-lg mb-10">
@@ -66,7 +76,7 @@ export default function ResultPage({
                     className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between"
                     onClick={(e) => {
                       e.preventDefault(); // 防止預設行為
-                      handleCardOnClick("https://github.com/");
+                      handleCardOnClick(result.url);
                     }}
                   >
                     <h3 className="text-lg font-bold text-gray-800 mb-2">
@@ -90,9 +100,21 @@ export default function ResultPage({
 
               {fake_api_results[2].map((result, index) => (
                 <div className="pt-4" key={index}>
-                  result
+                  {result}
                 </div>
               ))}
+            </div>
+          )}
+          {lookerStudio === true && (
+            <div className=" iframe-container flex items-center justify-center">
+              <iframe
+                width="1200"
+                height="500"
+                src="https://lookerstudio.google.com/embed/reporting/52c37a61-a7fe-4d8d-9d14-883054ce2290/page/k0eaE"
+                style={{ border: 0 }}
+                allowFullScreen
+                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+              ></iframe>
             </div>
           )}
         </div>
