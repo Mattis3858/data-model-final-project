@@ -29,9 +29,9 @@ export default function HomePage({
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <NavBar />
+      <NavBar homePage={isHomePage} setHomePage={setHomePage} />
       {/* Header Section */}
-      <header className="text-center mb-10 pt-20 sm:pt-28 md:pt-36 lg:pt-52">
+      <header className="text-center mb-10 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">
           Search Engine
         </h1>
@@ -60,7 +60,7 @@ export default function HomePage({
       </div>
 
       {/* Results Section */}
-      <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl mt-8 px-4">
+      {/* <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl mt-8 px-4">
         {results.length > 0 ? (
           <ul className="bg-white shadow-lg rounded-lg divide-y divide-gray-200">
             {results.map((result, index) => (
@@ -77,7 +77,7 @@ export default function HomePage({
             No results found. Try searching for something.
           </p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
