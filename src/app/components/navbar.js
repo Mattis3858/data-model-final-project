@@ -27,7 +27,8 @@ export default function NavBar({
         // setResults([data] || []);
 
         //! for fake api result
-        setResults(data || []);
+        setResults([data] || []);
+        setQuery("");
       } catch (error) {
         console.error("Error fetching results:", error);
         setResults([]); // Clear results on error
@@ -35,7 +36,6 @@ export default function NavBar({
       setHomePage(false);
       setLookerStudio(false);
       setPlaceholder("Search...");
-      setQuery("");
     } else {
       setPlaceholder("Please type some shit!");
     }

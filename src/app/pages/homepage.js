@@ -21,13 +21,13 @@ export default function HomePage({
     if (query) {
       try {
         const data = await fetchSummary(query);
-        // console.log(data);
+        console.log(data);
 
         //! for real api results
-        // setResults([data] || []);
+        setResults([data] || []);
 
         //! for fake api result
-        setResults(data || []);
+        // setResults(data || []);
         setQuery("");
       } catch (error) {
         console.error("Error fetching results:", error);

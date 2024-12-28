@@ -57,22 +57,20 @@ export default function ResultPage({
                     ))}
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6">
                 {results[0].article_titles["csdn"] &&
                   results[0].article_titles["csdn"].map((article, index) => (
                     <a
                       key={index}
                       href={article[1]}
-                      className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between"
+                      className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <h3 className="text-lg font-bold text-gray-800 mb-2">
                         {article[0]}
                       </h3>
-                      <p className="text-sm text-gray-600">
-                        Likes: {article[2]}
-                      </p>
+                      <p className="text-sm text-gray-600">👍: {article[2]}</p>
                     </a>
                   ))}
                 {results[0].article_titles["github"] &&
@@ -80,16 +78,14 @@ export default function ResultPage({
                     <a
                       key={index}
                       href={article[1]}
-                      className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between"
+                      className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <h3 className="text-lg font-bold text-gray-800 mb-2">
                         {article[0]}
                       </h3>
-                      <p className="text-sm text-gray-600">
-                        Likes: {article[2]}
-                      </p>
+                      <p className="text-sm text-gray-600">👍: {article[2]}</p>
                     </a>
                   ))}
                 {results[0].article_titles["medium"] &&
@@ -97,16 +93,14 @@ export default function ResultPage({
                     <a
                       key={index}
                       href={article[1]}
-                      className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between"
+                      className="bg-white shadow-lg rounded-lg p-4 flex  justify-between"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <h3 className="text-lg font-bold text-gray-800 mb-2">
                         {article[0]}
                       </h3>
-                      <p className="text-sm text-gray-600">
-                        Likes: {article[2]}
-                      </p>
+                      <p className="text-sm text-gray-600">👍: {article[2]}</p>
                     </a>
                   ))}
               </div>
@@ -129,6 +123,18 @@ export default function ResultPage({
                 width="1200"
                 height="800"
                 src="https://lookerstudio.google.com/embed/reporting/52c37a61-a7fe-4d8d-9d14-883054ce2290/page/k0eaE"
+                style={{ border: 0 }}
+                allowFullScreen
+                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+              ></iframe>
+            </div>
+          )}
+          {lookerStudio && tagLooker === true && (
+            <div>
+              <iframe
+                width="1200"
+                height="800"
+                src="https://lookerstudio.google.com/embed/reporting/e506aa88-ce92-4f59-b02e-5b5deafe3acc/page/KNgaE"
                 style={{ border: 0 }}
                 allowFullScreen
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
