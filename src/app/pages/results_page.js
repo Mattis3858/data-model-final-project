@@ -57,19 +57,38 @@ export default function ResultPage({
       />
       {/* main content */}
       {lookerStudio && (
-        <div className="text-black flex justify-center mt-6">
-          <button
-            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2"
-            onClick={() => setTagLooker(false)}
-          >
-            Normal Looker
-          </button>
-          <button
-            className="bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2"
-            onClick={() => setTagLooker(true)}
-          >
-            Tag Looker
-          </button>
+        <div className="text-black flex justify-center mt-10">
+          {tagLooker === false ? (
+            <>
+              <button
+                className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2"
+                onClick={() => setTagLooker(false)}
+              >
+                Normal Looker
+              </button>
+              <button
+                className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2"
+                onClick={() => setTagLooker(true)}
+              >
+                Tag Looker
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2"
+                onClick={() => setTagLooker(false)}
+              >
+                Normal Looker
+              </button>
+              <button
+                className="bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2"
+                onClick={() => setTagLooker(true)}
+              >
+                Tag Looker
+              </button>
+            </>
+          )}
         </div>
       )}
       <div className="result_content mt-10 flex justify-center">
