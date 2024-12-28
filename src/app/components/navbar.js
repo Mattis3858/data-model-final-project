@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { fetchSummary } from "@/apis/fetch_api_functions";
 
 export default function NavBar({
   homePage,
@@ -16,10 +17,25 @@ export default function NavBar({
     setLookerStudio(true);
     setHomePage(false);
   };
-  const handleSearchButtonClick = () => {
+  const handleSearchButtonClick = async () => {
     if (query) {
-      //! sent query api
-      //setResults(query)
+      try {
+        const data = await fetchSummary(query);
+        // console.log(data);
+
+        //! for real api results
+        // setResults([data] || []);
+
+        //! for fake api result
+        setResults(data || []);
+      } catch (error) {
+        console.error("Error fetching results:", error);
+        setResults([]); // Clear results on error
+      }
+      setHomePage(false);
+      setLookerStudio(false);
+      setPlaceholder("Search...");
+      setQuery("");
     } else {
       setPlaceholder("Please type some shit!");
     }
@@ -42,6 +58,7 @@ export default function NavBar({
               type="text"
               className="p-2 rounded-lg focus:outline-none w-full sm:w-auto text-slate-500"
               placeholder={placeholder}
+              value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <button

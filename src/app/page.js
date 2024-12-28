@@ -7,7 +7,7 @@ export default function Home() {
   const [homePage, setHomePage] = useState(true);
   const [results, setResults] = useState([]);
   const [lookerStudio, setLookerStudio] = useState(false);
-
+  const [query, setQuery] = useState("");
   return (
     <div>
       {homePage === true ? (
@@ -18,6 +18,8 @@ export default function Home() {
           setResults={setResults}
           lookerStudio={lookerStudio}
           setLookerStudio={setLookerStudio}
+          query={query}
+          setQuery={setQuery}
         />
       ) : (
         <ResultPage
@@ -27,6 +29,8 @@ export default function Home() {
           setResults={setResults}
           lookerStudio={lookerStudio}
           setLookerStudio={setLookerStudio}
+          query={query}
+          setQuery={setQuery}
         />
       )}
     </div>

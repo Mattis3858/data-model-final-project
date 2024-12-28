@@ -9,6 +9,8 @@ export default function ResultPage({
   setResults,
   lookerStudio,
   setLookerStudio,
+  query,
+  setQuery,
 }) {
   // const results = [];
   const handleCardOnClick = (href) => {
@@ -24,6 +26,8 @@ export default function ResultPage({
         setHomePage={setHomePage}
         lookerStudio={lookerStudio}
         setLookerStudio={setLookerStudio}
+        results={results}
+        setResults={setResults}
       />
       {/* main content */}
       {lookerStudio && (
