@@ -8,6 +8,7 @@ export default function Home() {
   const [results, setResults] = useState([]);
   const [lookerStudio, setLookerStudio] = useState(false);
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div>
       {homePage === true ? (
@@ -20,6 +21,8 @@ export default function Home() {
           setLookerStudio={setLookerStudio}
           query={query}
           setQuery={setQuery}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       ) : (
         <ResultPage
@@ -31,6 +34,8 @@ export default function Home() {
           setLookerStudio={setLookerStudio}
           query={query}
           setQuery={setQuery}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       )}
     </div>

@@ -10,6 +10,8 @@ export default function NavBar({
   setResults,
   lookerStudio,
   setLookerStudio,
+  isLoading,
+  setIsLoading,
 }) {
   const [query, setQuery] = useState("");
   const [placeholder, setPlaceholder] = useState("Search...");
@@ -19,6 +21,7 @@ export default function NavBar({
   };
   const handleSearchButtonClick = async () => {
     if (query) {
+      setIsLoading(true);
       try {
         const data = await fetchSummary(query);
         // console.log(data);
@@ -32,6 +35,8 @@ export default function NavBar({
       } catch (error) {
         console.error("Error fetching results:", error);
         setResults([]); // Clear results on error
+      } finally {
+        setIsLoading(false); // Hide loading spinner
       }
       setHomePage(false);
       setLookerStudio(false);
@@ -64,8 +69,9 @@ export default function NavBar({
             <button
               className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 w-full sm:w-auto"
               onClick={handleSearchButtonClick}
+              disabled={isLoading} // Disable button during loading
             >
-              Search
+              {isLoading ? "Loading..." : "Search"}
             </button>
           </>
         )}

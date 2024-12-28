@@ -1,6 +1,7 @@
 import { base_url } from "./api_urls";
 
 export const fetchSummary = async (query) => {
+  console.log(query);
   const response = await fetch(`${base_url}summarize`, {
     method: "POST",
     headers: {
@@ -16,8 +17,8 @@ export const fetchSummary = async (query) => {
     throw new Error("Network response was not ok");
   }
   // Parse the response as JSON
-  const data = await response.json();
-  console.log(data); // Log the parsed data for debugging
+  const result = await response.json();
+  // console.log(data); // Log the parsed data for debugging
 
   // response = response.json();
 
@@ -83,5 +84,5 @@ export const fetchSummary = async (query) => {
   //   },
   // ];
   // const response = result;
-  return data; // Return the parsed data to the caller
+  return result; // Return the parsed data to the caller
 };
