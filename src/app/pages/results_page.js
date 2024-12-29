@@ -93,87 +93,136 @@ export default function ResultPage({
       )}
       <div className="result_content mt-10 flex justify-center">
         <div className="bg-slate-500 w-3/5 p-6 rounded-lg mb-10">
-          {lookerStudio === false && tagLooker === false && (
-            <div>
-              {/* Interested Tags */}
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-white mb-4">
-                  Interested Tags
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                  {results[0].interested_tags &&
-                    results[0].interested_tags.map((tag, index) => (
-                      <span
+          {lookerStudio === false &&
+            tagLooker === false &&
+            results[0].interested_tags && (
+              <div>
+                {/* Interested Tags */}
+                <div className="mb-6">
+                  <h2 className="text-xl font-bold text-white mb-4">
+                    Interested Tags
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    {results[0].interested_tags &&
+                      results[0].interested_tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded hover:cursor-pointer"
+                          onClick={() => fetchSummary(tag)}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 gap-6">
+                  <h2 className="text-xl font-bold text-white">Articles</h2>
+                  {results[0].article_titles["csdn"] &&
+                    results[0].article_titles["csdn"].map((article, index) => (
+                      <a
                         key={index}
-                        className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded hover:cursor-pointer"
-                        onClick={() => fetchSummary(tag)}
+                        href={article[1]}
+                        className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        {tag}
-                      </span>
+                        <h3 className="text-lg font-bold text-gray-800 mb-2">
+                          {article[0]}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          👍: {article[2]}
+                        </p>
+                      </a>
                     ))}
+                  {results[0].article_titles["github"] &&
+                    results[0].article_titles["github"].map(
+                      (article, index) => (
+                        <a
+                          key={index}
+                          href={article[1]}
+                          className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <h3 className="text-lg font-bold text-gray-800 mb-2">
+                            {article[0]}
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            👍: {article[2]}
+                          </p>
+                        </a>
+                      )
+                    )}
+                  {results[0].article_titles["medium"] &&
+                    results[0].article_titles["medium"].map(
+                      (article, index) => (
+                        <a
+                          key={index}
+                          href={article[1]}
+                          className="bg-white shadow-lg rounded-lg p-4 flex  justify-between"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <h3 className="text-lg font-bold text-gray-800 mb-2">
+                            {article[0]}
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            👍: {article[2]}
+                          </p>
+                        </a>
+                      )
+                    )}
+                </div>
+                {/* Summarized Content */}
+                <div className="mb-6 mt-6">
+                  <h2 className="text-xl font-bold text-white mb-4">
+                    Summarized Content
+                  </h2>
+                  <p className="text-white whitespace-pre-line">
+                    {results[0].summarized_content}
+                  </p>
+                </div>
+
+                {/* Articles */}
+              </div>
+            )}
+          {lookerStudio === false &&
+            tagLooker === false &&
+            results[0].articles && (
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-white mb-4">Articles</h2>
+                <div className="grid grid-cols-1 gap-6">
+                  {results[0].articles.map((article, index) => (
+                    <div
+                      key={index}
+                      className="bg-white shadow-lg rounded-lg p-4 flex justify-between items-center"
+                    >
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-800 mb-2">
+                          {article.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-1">
+                          Source: {article.source}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          👍: {article.likes}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Summarized Content */}
+                <div className="mb-6 mt-6">
+                  <h2 className="text-xl font-bold text-white mb-4">
+                    Summarized Content
+                  </h2>
+                  <p className="text-white whitespace-pre-line">
+                    {results[0].summarized_content}
+                  </p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-6">
-                <h2 className="text-xl font-bold text-white">Articles</h2>
-                {results[0].article_titles["csdn"] &&
-                  results[0].article_titles["csdn"].map((article, index) => (
-                    <a
-                      key={index}
-                      href={article[1]}
-                      className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <h3 className="text-lg font-bold text-gray-800 mb-2">
-                        {article[0]}
-                      </h3>
-                      <p className="text-sm text-gray-600">👍: {article[2]}</p>
-                    </a>
-                  ))}
-                {results[0].article_titles["github"] &&
-                  results[0].article_titles["github"].map((article, index) => (
-                    <a
-                      key={index}
-                      href={article[1]}
-                      className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <h3 className="text-lg font-bold text-gray-800 mb-2">
-                        {article[0]}
-                      </h3>
-                      <p className="text-sm text-gray-600">👍: {article[2]}</p>
-                    </a>
-                  ))}
-                {results[0].article_titles["medium"] &&
-                  results[0].article_titles["medium"].map((article, index) => (
-                    <a
-                      key={index}
-                      href={article[1]}
-                      className="bg-white shadow-lg rounded-lg p-4 flex  justify-between"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <h3 className="text-lg font-bold text-gray-800 mb-2">
-                        {article[0]}
-                      </h3>
-                      <p className="text-sm text-gray-600">👍: {article[2]}</p>
-                    </a>
-                  ))}
-              </div>
-              {/* Summarized Content */}
-              <div className="mb-6 mt-6">
-                <h2 className="text-xl font-bold text-white mb-4">
-                  Summarized Content
-                </h2>
-                <p className="text-white whitespace-pre-line">
-                  {results[0].summarized_content}
-                </p>
-              </div>
+            )}
 
-              {/* Articles */}
-            </div>
-          )}
           {lookerStudio && tagLooker === false && (
             <div className="iframe-container flex items-center justify-center">
               <iframe

@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import InputBar from "../components/input_bar";
 import NavBar from "../components/navbar";
-import { fetchSummary } from "@/apis/fetch_api_functions";
+import {
+  fetch_shortcut_question1,
+  fetch_shortcut_question2,
+  fetch_shortcut_question3,
+  fetch_shortcut_question4,
+  fetchSummary,
+} from "@/apis/fetch_api_functions";
 
 export default function HomePage({
   isHomePage,
@@ -20,7 +26,7 @@ export default function HomePage({
   );
   // Loading state
 
-  const handleSearch = async () => {
+  const handleSearchButtonClick = async () => {
     if (query) {
       setIsLoading(true);
       try {
@@ -45,6 +51,23 @@ export default function HomePage({
     } else {
       setPlaceholder("Please type some shit!");
     }
+  };
+
+  const handleSQLButtonClick = async (api_call_function) => {
+    setIsLoading(true);
+    try {
+      const data = await api_call_function;
+      console.log(data);
+      setResults([data] || []);
+    } catch (error) {
+      console.error("Error fetching results:", error);
+      setResults([]);
+    } finally {
+      setIsLoading(false); // Hide loading spinner
+    }
+    setHomePage(false);
+    setLookerStudio(false);
+    setPlaceholder("Type your search query here...");
   };
 
   return (
@@ -99,12 +122,46 @@ export default function HomePage({
           />
           <button
             className="w-full sm:w-auto px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none"
-            onClick={handleSearch}
+            onClick={handleSearchButtonClick}
             disabled={isLoading} // Disable button during loading
           >
             {isLoading ? "Loading..." : "Search"}
           </button>
         </div>
+      </div>
+      <div className="mt-8 grid grid-cols-2 gap-4 w-full max-w-md sm:max-w-lg md:max-w-2xl px-4">
+        <button
+          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
+          onClick={() => {
+            handleSQLButtonClick(fetch_shortcut_question1());
+          }}
+        >
+          Button 1
+        </button>
+        <button
+          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
+          onClick={() => {
+            handleSQLButtonClick(fetch_shortcut_question2());
+          }}
+        >
+          Button 2
+        </button>
+        <button
+          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
+          onClick={() => {
+            handleSQLButtonClick(fetch_shortcut_question3());
+          }}
+        >
+          Button 3
+        </button>
+        <button
+          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
+          onClick={() => {
+            handleSQLButtonClick(fetch_shortcut_question4());
+          }}
+        >
+          Button 4
+        </button>
       </div>
       {/* {isLoading && (
         <div role="status" className="pt-5">
