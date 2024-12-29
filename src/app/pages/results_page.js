@@ -16,7 +16,6 @@ export default function ResultPage({
   isLoading,
   setIsLoading,
 }) {
-  // const results = [];
   const handleCardOnClick = (href) => {
     window.open(href, "_blank");
   };
@@ -25,13 +24,12 @@ export default function ResultPage({
     setIsLoading(true);
     try {
       const data = await fetchSummary(tag);
-      // console.log(data);
       setResults([data] || []);
     } catch (error) {
       console.error("Error fetching results:", error);
       setResults([]);
     } finally {
-      setIsLoading(false); // Hide loading spinner
+      setIsLoading(false);
     }
     setHomePage(false);
     setLookerStudio(false);
@@ -62,7 +60,6 @@ export default function ResultPage({
         </div>
       )}
 
-      {/* navbar */}
       <NavBar
         homePage={isHomePage}
         setHomePage={setHomePage}
@@ -73,7 +70,7 @@ export default function ResultPage({
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      {/* main content */}
+
       {lookerStudio && (
         <div className="text-black flex justify-center mt-10">
           {tagLooker === false ? (
@@ -115,7 +112,6 @@ export default function ResultPage({
             tagLooker === false &&
             results[0].interested_tags && (
               <div>
-                {/* Interested Tags */}
                 <div className="mb-6">
                   <h2 className="text-xl font-bold text-white mb-4">
                     Interested Tags
@@ -132,26 +128,25 @@ export default function ResultPage({
                     ))}
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-white  mb-4">Articles</h2>
+                <h2 className="text-xl font-bold text-white mb-4">Articles</h2>
                 <div className="grid grid-cols-3 gap-6">
                   {results[0].article_titles["csdn"] &&
                     results[0].article_titles["csdn"].map((article, index) => (
                       <a
                         key={index}
                         href={article[1]}
-                        className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50"
+                        className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <h2 className="text-lg font-bold text-gray-600 ">
-                          {article[0]}
-                        </h2>
-                        <p className="text-sm text-gray-600 flex flex-row">
-                          csdn
-                        </p>
-                        <p className="text-sm text-gray-600  flex flex-row pt-1">
-                          <FaRegThumbsUp />
-                          {article[2]}
+                        <div className="flex-grow">
+                          <h2 className="text-lg font-bold text-gray-600 mb-2">
+                            {article[0]}
+                          </h2>
+                          <p className="text-sm text-gray-600">csdn</p>
+                        </div>
+                        <p className="text-sm text-gray-600 flex flex-row items-center mt-2">
+                          <FaRegThumbsUp className="mr-1" /> {article[2]}
                         </p>
                       </a>
                     ))}
@@ -161,19 +156,18 @@ export default function ResultPage({
                         <a
                           key={index}
                           href={article[1]}
-                          className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50"
+                          className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <h3 className="text-md font-bold text-gray-600">
-                            {article[0]}
-                          </h3>
-                          <p className="text-sm text-gray-600 flex flex-row">
-                            github
-                          </p>
-                          <p className="text-sm text-gray-600 flex flex-row  pt-1">
-                            <FaRegThumbsUp />
-                            {article[2]}
+                          <div className="flex-grow">
+                            <h3 className="text-md font-bold text-gray-600 mb-2">
+                              {article[0]}
+                            </h3>
+                            <p className="text-sm text-gray-600">github</p>
+                          </div>
+                          <p className="text-sm text-gray-600 flex flex-row items-center mt-2">
+                            <FaRegThumbsUp className="mr-1" /> {article[2]}
                           </p>
                         </a>
                       )
@@ -184,24 +178,23 @@ export default function ResultPage({
                         <a
                           key={index}
                           href={article[1]}
-                          className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50"
+                          className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <h3 className="text-lg font-bold text-gray-600">
-                            {article[0]}
-                          </h3>
-                          <p className="text-sm text-gray-600 flex flex-row">
-                            "medium"
-                          </p>
-                          <p className="text-sm text-gray-600 flex flex-row  pt-1">
-                            <FaRegThumbsUp /> {article[2]}
+                          <div className="flex-grow">
+                            <h3 className="text-lg font-bold text-gray-600 mb-2">
+                              {article[0]}
+                            </h3>
+                            <p className="text-sm text-gray-600">medium</p>
+                          </div>
+                          <p className="text-sm text-gray-600 flex flex-row items-center mt-2">
+                            <FaRegThumbsUp className="mr-1" /> {article[2]}
                           </p>
                         </a>
                       )
                     )}
                 </div>
-                {/* Summarized Content */}
                 <div className="mb-6 mt-6">
                   <h2 className="text-xl font-bold text-white mb-4">
                     Summarized Content
@@ -210,8 +203,6 @@ export default function ResultPage({
                     {results[0].summarized_content}
                   </p>
                 </div>
-
-                {/* Articles */}
               </div>
             )}
           {lookerStudio === false &&
@@ -223,23 +214,22 @@ export default function ResultPage({
                   {results[0].articles.map((article, index) => (
                     <div
                       key={index}
-                      className="bg-white shadow-lg rounded-lg p-4 flex justify-between items-center"
+                      className="bg-white shadow-lg rounded-lg p-4 flex flex-col h-full"
                     >
-                      <div>
+                      <div className="flex-grow">
                         <h3 className="text-lg font-bold text-gray-800 mb-2">
                           {article.title}
                         </h3>
-                        <p className="text-sm text-gray-600 mb-1">
+                        <p className="text-sm text-gray-600 mb-2">
                           {article.source}
                         </p>
-                        <p className="text-sm text-gray-600 flex flex-row">
-                          <FaRegThumbsUp /> {article.likes}
-                        </p>
                       </div>
+                      <p className="text-sm text-gray-600 flex flex-row items-center">
+                        <FaRegThumbsUp className="mr-1" /> {article.likes}
+                      </p>
                     </div>
                   ))}
                 </div>
-                {/* Summarized Content */}
                 <div className="mb-6 mt-6">
                   <h2 className="text-xl font-bold text-white mb-4">
                     Summarized Content

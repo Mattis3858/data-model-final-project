@@ -231,9 +231,9 @@ export default function HomePage({
       </div>
       <div className="flex flex-row items-center mt-4 space-x-4">
         <button
-          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none ${
+          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 ${
             selectedSources.includes("csdn")
-              ? "bg-gray-600 text-white"
+              ? "bg-gray-600 text-white scale-105"
               : "bg-gray-300 text-black hover:bg-gray-300"
           }`}
           onClick={() => handleButtonClick("csdn")}
@@ -241,9 +241,9 @@ export default function HomePage({
           CSDN
         </button>
         <button
-          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none ${
+          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 ${
             selectedSources.includes("github")
-              ? "bg-gray-600 text-white"
+              ? "bg-gray-600 text-white scale-105"
               : "bg-gray-300 text-black hover:bg-gray-300"
           }`}
           onClick={() => handleButtonClick("github")}
@@ -251,9 +251,9 @@ export default function HomePage({
           GitHub
         </button>
         <button
-          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none ${
+          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 ${
             selectedSources.includes("medium")
-              ? "bg-gray-600 text-white"
+              ? "bg-gray-600 text-white  scale-105"
               : "bg-gray-300 text-black hover:bg-gray-300"
           }`}
           onClick={() => handleButtonClick("medium")}
