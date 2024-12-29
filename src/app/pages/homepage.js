@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import InputBar from "../components/input_bar";
 import NavBar from "../components/navbar";
@@ -136,7 +136,9 @@ export default function HomePage({
       zIndex: 9999, // 確保下拉選單顯示在其他元素上方
     }),
   };
-  get_today_tags();
+  useEffect(() => {
+    get_today_tags();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {isLoading && (
@@ -171,15 +173,15 @@ export default function HomePage({
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      <header className="text-center mb-2 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
-        <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">
-          TechTrends
+      <header className="text-center mb-2 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-48">
+        <h1 className="text-3xl sm:text-4xl font-bold text-blue-600">
+          Knowledge Waves
         </h1>
         <p className="text-gray-600 text-sm sm:text-base">
           Find the TECH information you need quickly and easily!
         </p>
       </header>
-      <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl px-4">
+      <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl px-4 mt-5">
         <div className="flex justify-center mb-4">
           <button
             className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg"

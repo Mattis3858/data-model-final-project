@@ -54,7 +54,7 @@ export default function NavBar({
           setHomePage(true);
         }}
       >
-        TechTrends Retriever
+        Knowledge Waves
       </a>
       <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
         {homePage === false && (
