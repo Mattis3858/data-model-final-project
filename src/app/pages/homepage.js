@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import InputBar from "../components/input_bar";
 import NavBar from "../components/navbar";
+import makeAnimated from "react-select/animated";
 import {
+  fetch_get_today_tags,
+  fetch_selected_tags_summary,
   fetch_shortcut_question1,
   fetch_shortcut_question2,
   fetch_shortcut_question3,
@@ -24,10 +28,22 @@ export default function HomePage({
   const [placeholder, setPlaceholder] = useState(
     "Type your search query here..."
   );
-
+  const [searchMode, setSearchMode] = useState(0); // 0 for text input, 1 for dropdown
+  const [multiSelectOptions, setMultiSelectOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedSources, setSelectedSources] = useState([]);
   // Loading state
+  const get_today_tags = async () => {
+    const data = await fetch_get_today_tags();
+    // console.log(data);
+    const formattedOptions = data["tag"].map((tag) => ({
+      value: tag,
+      label: tag,
+    }));
 
+    // 更新 multiSelectOptions 狀態
+    setMultiSelectOptions(formattedOptions);
+  };
   const handleSearchButtonClick = async () => {
     if (query) {
       setIsLoading(true);
@@ -71,6 +87,32 @@ export default function HomePage({
     setLookerStudio(false);
     setPlaceholder("Type your search query here...");
   };
+  const handleSelectChange = (selected) => {
+    setSelectedOptions(selected || []); // Handle both selection and deselection
+  };
+  const handleMultiSelectSearch = async () => {
+    if (selectedOptions.length > 0) {
+      setIsLoading(true);
+      try {
+        console.log(selectedOptions);
+        const tags = selectedOptions.map((item) => item.value);
+        console.log(selectedSources);
+        const data = await fetch_selected_tags_summary(tags, selectedSources);
+        console.log(data);
+        setResults([data] || []);
+      } catch (error) {
+        console.error("Error fetching results:", error);
+        setResults([]);
+      } finally {
+        setIsLoading(false);
+      }
+      setHomePage(false);
+      setLookerStudio(false);
+    } else {
+      alert("Please select at least one query!");
+    }
+  };
+
   const handleButtonClick = (source) => {
     setSelectedSources((prev) => {
       if (prev.includes(source)) {
@@ -80,7 +122,21 @@ export default function HomePage({
       }
     });
   };
-
+  const customStyles = {
+    container: (provided) => ({
+      ...provided,
+      flex: 1,
+    }),
+    control: (base) => ({
+      ...base,
+      minWidth: "200px",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 9999, // 確保下拉選單顯示在其他元素上方
+    }),
+  };
+  get_today_tags();
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {isLoading && (
@@ -115,7 +171,7 @@ export default function HomePage({
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      <header className="text-center mb-10 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
+      <header className="text-center mb-2 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">
           TechTrends Retriever
         </h1>
@@ -124,22 +180,54 @@ export default function HomePage({
         </p>
       </header>
       <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl px-4">
-        <div className="flex flex-col sm:flex-row items-center bg-white shadow-lg rounded-lg overflow-hidden">
-          <input
-            type="text"
-            className="flex-grow w-full p-4 text-gray-800 focus:outline-none"
-            placeholder={placeholder}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+        <div className="flex justify-center mb-4">
           <button
-            className="w-full sm:w-auto px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none"
-            onClick={handleSearchButtonClick}
-            disabled={isLoading} // Disable button during loading
+            className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg"
+            onClick={() =>
+              setSearchMode((prevMode) => (prevMode === 0 ? 1 : 0))
+            }
           >
-            {isLoading ? "Loading..." : "Search"}
+            Switch to {searchMode === 0 ? "Dropdown" : "Text Input"} Mode
           </button>
         </div>
+        {searchMode === 0 ? (
+          <div className="flex flex-col sm:flex-row items-center bg-white shadow-lg rounded-lg overflow-hidden">
+            <input
+              type="text"
+              className="flex-grow w-full p-4 text-gray-800 focus:outline-none"
+              placeholder={placeholder}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button
+              className="w-full sm:w-auto px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none"
+              onClick={handleSearchButtonClick}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Search"}
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col sm:flex-row items-center bg-white shadow-lg rounded-lg relative">
+            <Select
+              isMulti
+              closeMenuOnSelect={false}
+              options={multiSelectOptions}
+              value={selectedOptions}
+              onChange={handleSelectChange}
+              className="flex-grow w-full p-2 text-gray-800"
+              placeholder="Select your queries..."
+              styles={customStyles}
+            />
+            <button
+              className="w-full sm:w-auto px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none rounded-r-lg"
+              onClick={handleMultiSelectSearch}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Search"}
+            </button>
+          </div>
+        )}
       </div>
       <div className="flex flex-row items-center mt-4 space-x-4">
         <button

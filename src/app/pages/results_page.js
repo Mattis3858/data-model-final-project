@@ -88,7 +88,7 @@ export default function ResultPage({
                 className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2 scale-90"
                 onClick={() => setTagLooker(true)}
               >
-                Tag Looker
+                Tags
               </button>
             </>
           ) : (
@@ -103,7 +103,7 @@ export default function ResultPage({
                 className="bg-green-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2 scale-110"
                 onClick={() => setTagLooker(true)}
               >
-                Tag Looker
+                Tags
               </button>
             </>
           )}
@@ -266,7 +266,7 @@ export default function ResultPage({
           {lookerStudio && tagLooker === true && (
             <div>
               <iframe
-                width="1500"
+                width="1100"
                 height="800"
                 src="https://lookerstudio.google.com/embed/reporting/e506aa88-ce92-4f59-b02e-5b5deafe3acc/page/KNgaE"
                 style={{ border: 0 }}

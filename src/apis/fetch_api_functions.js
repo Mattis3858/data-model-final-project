@@ -5,7 +5,7 @@ export const fetchSummary = async (
   selectedSources = ["github", "medium", "csdn"]
 ) => {
   console.log(selectedSources);
-  const response = await fetch(`${base_url}summarize`, {
+  const response = await fetch(`${base_url}text_search_summarize`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -108,6 +108,30 @@ export const fetch_shortcut_question3 = async () => {
 };
 export const fetch_shortcut_question4 = async () => {
   const response = await fetch(`${base_url}shortcut/question4`);
+  const result = await response.json();
+  return result;
+};
+
+export const fetch_get_today_tags = async () => {
+  const response = await fetch(`${base_url}get_today_tags`);
+  const result = await response.json();
+  return result;
+};
+
+export const fetch_selected_tags_summary = async (
+  selected_tags,
+  sources = ["github", "medium", "csdn"]
+) => {
+  const response = await fetch(`${base_url}selected_tags_summarize`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      selected_tags: selected_tags,
+      sources: sources,
+    }),
+  });
   const result = await response.json();
   return result;
 };
