@@ -107,7 +107,11 @@ export default function ResultPage({
         </div>
       )}
       <div className="result_content mt-10 flex justify-center">
-        <div className="bg-slate-500 w-3/5 p-6 rounded-lg mb-10">
+        <div
+          className={`bg-slate-500 ${
+            lookerStudio ? "w-4/5" : "w-3/5"
+          } p-6 rounded-lg mb-10`}
+        >
           {lookerStudio === false &&
             tagLooker === false &&
             results[0].interested_tags && (
@@ -254,9 +258,9 @@ export default function ResultPage({
             </div>
           )}
           {lookerStudio && tagLooker === true && (
-            <div>
+            <div className="iframe-container flex items-center justify-center">
               <iframe
-                width="1100"
+                width="1500"
                 height="800"
                 src="https://lookerstudio.google.com/embed/reporting/e506aa88-ce92-4f59-b02e-5b5deafe3acc/page/KNgaE"
                 style={{ border: 0 }}
