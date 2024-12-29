@@ -1,7 +1,10 @@
 import { base_url } from "./api_urls";
 
-export const fetchSummary = async (query) => {
-  // console.log(query);
+export const fetchSummary = async (
+  query,
+  selectedSources = ["github", "medium", "csdn"]
+) => {
+  console.log(selectedSources);
   const response = await fetch(`${base_url}summarize`, {
     method: "POST",
     headers: {
@@ -9,7 +12,7 @@ export const fetchSummary = async (query) => {
     },
     body: JSON.stringify({
       query: query,
-      sources: ["github", "medium", "csdn"],
+      sources: selectedSources,
     }),
   });
 

@@ -82,7 +82,7 @@ export default function ResultPage({
                 className="bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2 scale-110"
                 onClick={() => setTagLooker(false)}
               >
-                Normal Looker
+                Dashboard
               </button>
               <button
                 className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2 scale-90"
@@ -97,7 +97,7 @@ export default function ResultPage({
                 className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2 scale-90"
                 onClick={() => setTagLooker(false)}
               >
-                Normal Looker
+                Dashboard
               </button>
               <button
                 className="bg-green-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2 scale-110"
@@ -143,11 +143,15 @@ export default function ResultPage({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <h2 className="text-lg font-bold text-gray-800 mb-2 ">
+                        <h2 className="text-lg font-bold text-gray-600 ">
                           {article[0]}
                         </h2>
-                        <p className="text-sm text-gray-600  flex flex-row">
-                          <FaRegThumbsUp />: {article[2]}
+                        <p className="text-sm text-gray-600 flex flex-row">
+                          csdn
+                        </p>
+                        <p className="text-sm text-gray-600  flex flex-row pt-1">
+                          <FaRegThumbsUp />
+                          {article[2]}
                         </p>
                       </a>
                     ))}
@@ -161,11 +165,15 @@ export default function ResultPage({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <h3 className="text-md font-bold text-gray-800 mb-2">
+                          <h3 className="text-md font-bold text-gray-600">
                             {article[0]}
                           </h3>
                           <p className="text-sm text-gray-600 flex flex-row">
-                            <FaRegThumbsUp />: {article[2]}
+                            github
+                          </p>
+                          <p className="text-sm text-gray-600 flex flex-row  pt-1">
+                            <FaRegThumbsUp />
+                            {article[2]}
                           </p>
                         </a>
                       )
@@ -180,11 +188,14 @@ export default function ResultPage({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <h3 className="text-lg font-bold text-gray-800 mb-2">
+                          <h3 className="text-lg font-bold text-gray-600">
                             {article[0]}
                           </h3>
                           <p className="text-sm text-gray-600 flex flex-row">
-                            <FaRegThumbsUp /> : {article[2]}
+                            "medium"
+                          </p>
+                          <p className="text-sm text-gray-600 flex flex-row  pt-1">
+                            <FaRegThumbsUp /> {article[2]}
                           </p>
                         </a>
                       )
@@ -219,10 +230,10 @@ export default function ResultPage({
                           {article.title}
                         </h3>
                         <p className="text-sm text-gray-600 mb-1">
-                          Source: {article.source}
+                          {article.source}
                         </p>
                         <p className="text-sm text-gray-600 flex flex-row">
-                          <FaRegThumbsUp />: {article.likes}
+                          <FaRegThumbsUp /> {article.likes}
                         </p>
                       </div>
                     </div>
@@ -243,7 +254,7 @@ export default function ResultPage({
           {lookerStudio && tagLooker === false && (
             <div className="iframe-container flex items-center justify-center">
               <iframe
-                width="1200"
+                width="1500"
                 height="800"
                 src="https://lookerstudio.google.com/embed/reporting/52c37a61-a7fe-4d8d-9d14-883054ce2290/page/k0eaE"
                 style={{ border: 0 }}
@@ -255,7 +266,7 @@ export default function ResultPage({
           {lookerStudio && tagLooker === true && (
             <div>
               <iframe
-                width="1100"
+                width="1500"
                 height="800"
                 src="https://lookerstudio.google.com/embed/reporting/e506aa88-ce92-4f59-b02e-5b5deafe3acc/page/KNgaE"
                 style={{ border: 0 }}
