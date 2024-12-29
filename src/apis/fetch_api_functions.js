@@ -120,8 +120,10 @@ export const fetch_get_today_tags = async () => {
 
 export const fetch_selected_tags_summary = async (
   selected_tags,
-  sources = ["github", "medium", "csdn"]
+  selectedSources = ["github", "medium", "csdn"]
 ) => {
+  console.log(selected_tags);
+  console.log(selectedSources);
   const response = await fetch(`${base_url}selected_tags_summarize`, {
     method: "POST",
     headers: {
@@ -129,7 +131,7 @@ export const fetch_selected_tags_summary = async (
     },
     body: JSON.stringify({
       selected_tags: selected_tags,
-      sources: sources,
+      sources: selectedSources,
     }),
   });
   const result = await response.json();

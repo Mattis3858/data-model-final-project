@@ -31,7 +31,11 @@ export default function HomePage({
   const [searchMode, setSearchMode] = useState(0); // 0 for text input, 1 for dropdown
   const [multiSelectOptions, setMultiSelectOptions] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [selectedSources, setSelectedSources] = useState([]);
+  const [selectedSources, setSelectedSources] = useState([
+    "github",
+    "medium",
+    "csdn",
+  ]);
   // Loading state
   const get_today_tags = async () => {
     const data = await fetch_get_today_tags();
