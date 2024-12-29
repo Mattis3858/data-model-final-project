@@ -173,7 +173,7 @@ export default function HomePage({
       />
       <header className="text-center mb-2 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">
-          TechTrends Retriever
+          TechTrends
         </h1>
         <p className="text-gray-600 text-sm sm:text-base">
           Find the TECH information you need quickly and easily!
