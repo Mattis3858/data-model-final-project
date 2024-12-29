@@ -147,11 +147,13 @@ export default function ResultPage({
                           <h2 className="text-lg font-bold text-gray-600 mb-2">
                             {article[0]}
                           </h2>
-                          <p className="text-sm text-gray-600">csdn</p>
                         </div>
-                        <p className="text-sm text-gray-600 flex flex-row items-center mt-2">
-                          <FaRegThumbsUp className="mr-1" /> {article[2]}
-                        </p>
+                        <div className="mt-auto">
+                          <p className="text-sm text-gray-600 mb-2">csdn</p>
+                          <p className="text-sm text-gray-600 flex flex-row items-center">
+                            <FaRegThumbsUp className="mr-1" /> {article[2]}
+                          </p>
+                        </div>
                       </a>
                     ))}
                   {results[0].article_titles["github"] &&
@@ -168,11 +170,13 @@ export default function ResultPage({
                             <h3 className="text-md font-bold text-gray-600 mb-2">
                               {article[0]}
                             </h3>
-                            <p className="text-sm text-gray-600">github</p>
                           </div>
-                          <p className="text-sm text-gray-600 flex flex-row items-center mt-2">
-                            <FaRegThumbsUp className="mr-1" /> {article[2]}
-                          </p>
+                          <div className="mt-auto">
+                            <p className="text-sm text-gray-600 mb-2">github</p>
+                            <p className="text-sm text-gray-600 flex flex-row items-center">
+                              <FaRegThumbsUp className="mr-1" /> {article[2]}
+                            </p>
+                          </div>
                         </a>
                       )
                     )}
@@ -190,11 +194,13 @@ export default function ResultPage({
                             <h3 className="text-lg font-bold text-gray-600 mb-2">
                               {article[0]}
                             </h3>
-                            <p className="text-sm text-gray-600">medium</p>
                           </div>
-                          <p className="text-sm text-gray-600 flex flex-row items-center mt-2">
-                            <FaRegThumbsUp className="mr-1" /> {article[2]}
-                          </p>
+                          <div className="mt-auto">
+                            <p className="text-sm text-gray-600 mb-2">medium</p>
+                            <p className="text-sm text-gray-600 flex flex-row items-center">
+                              <FaRegThumbsUp className="mr-1" /> {article[2]}
+                            </p>
+                          </div>
                         </a>
                       )
                     )}
@@ -209,6 +215,7 @@ export default function ResultPage({
                 </div>
               </div>
             )}
+          {/* 前面的代碼保持不變，只修改相關的卡片部分 */}
           {lookerStudio === false &&
             tagLooker === false &&
             results[0].articles && (
@@ -224,13 +231,15 @@ export default function ResultPage({
                         <h3 className="text-lg font-bold text-gray-800 mb-2">
                           {article.title}
                         </h3>
+                      </div>
+                      <div className="mt-auto">
                         <p className="text-sm text-gray-600 mb-2">
                           {article.source}
                         </p>
+                        <p className="text-sm text-gray-600 flex flex-row items-center">
+                          <FaRegThumbsUp className="mr-1" /> {article.likes}
+                        </p>
                       </div>
-                      <p className="text-sm text-gray-600 flex flex-row items-center">
-                        <FaRegThumbsUp className="mr-1" /> {article.likes}
-                      </p>
                     </div>
                   ))}
                 </div>
