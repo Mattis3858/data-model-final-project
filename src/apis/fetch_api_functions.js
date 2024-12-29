@@ -86,3 +86,25 @@ export const fetchSummary = async (query) => {
   // const response = result;
   return result; // Return the parsed data to the caller
 };
+
+export const fetch_shortcut_question1 = async () => {
+  const response = await fetch(`${base_url}shortcut/question1`);
+  const result = await response.json();
+  console.log(result);
+  return result;
+};
+export const fetch_shortcut_question2 = async () => {
+  const response = await fetch(`${base_url}shortcut/question2`);
+  const result = await response.json();
+  return result;
+};
+export const fetch_shortcut_question3 = async () => {
+  const response = await fetch(`${base_url}shortcut/question3`);
+  const result = await response.json();
+  return result;
+};
+export const fetch_shortcut_question4 = async () => {
+  const response = await fetch(`${base_url}shortcut/question4`);
+  const result = await response.json();
+  return result;
+};
