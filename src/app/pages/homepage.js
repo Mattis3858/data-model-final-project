@@ -57,7 +57,7 @@ export default function HomePage({
     setIsLoading(true);
     try {
       const data = await api_call_function;
-      console.log(data);
+      // console.log(data);
       setResults([data] || []);
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -73,7 +73,7 @@ export default function HomePage({
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {isLoading && (
-        <div className="absolute inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
           <svg
             aria-hidden="true"
             className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -93,6 +93,7 @@ export default function HomePage({
           <p className="text-blue-600 font-semibold mt-4">Loading...</p>
         </div>
       )}
+
       <NavBar
         homePage={isHomePage}
         setHomePage={setHomePage}
@@ -105,7 +106,7 @@ export default function HomePage({
       />
       <header className="text-center mb-10 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-52">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">
-          Search Engine
+          TechTrends Retriever
         </h1>
         <p className="text-gray-600 text-sm sm:text-base">
           Find the TECH information you need quickly and easily!
@@ -136,7 +137,7 @@ export default function HomePage({
             handleSQLButtonClick(fetch_shortcut_question1());
           }}
         >
-          Button 1
+          今天最受歡迎的文章前五篇文章分別為何？
         </button>
         <button
           className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
@@ -144,7 +145,7 @@ export default function HomePage({
             handleSQLButtonClick(fetch_shortcut_question2());
           }}
         >
-          Button 2
+          今天內關於「AI」的文章中，點讚數最高的三篇文章標題是什麼？
         </button>
         <button
           className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
@@ -152,7 +153,7 @@ export default function HomePage({
             handleSQLButtonClick(fetch_shortcut_question3());
           }}
         >
-          Button 3
+          對所有來源今日的文章關於 LLM RAG 的內容進行介紹
         </button>
         <button
           className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
@@ -160,7 +161,7 @@ export default function HomePage({
             handleSQLButtonClick(fetch_shortcut_question4());
           }}
         >
-          Button 4
+          目前資料中來自「medium」的五篇最熱門文章是什麼？
         </button>
       </div>
       {/* {isLoading && (

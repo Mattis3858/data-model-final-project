@@ -2,6 +2,7 @@
 import { useState } from "react";
 import NavBar from "../components/navbar";
 import { fetchSummary } from "@/apis/fetch_api_functions";
+import { FaRegThumbsUp } from "react-icons/fa";
 
 export default function ResultPage({
   isHomePage,
@@ -20,11 +21,27 @@ export default function ResultPage({
     window.open(href, "_blank");
   };
 
+  const handleTagsClick = async (tag) => {
+    setIsLoading(true);
+    try {
+      const data = await fetchSummary(tag);
+      // console.log(data);
+      setResults([data] || []);
+    } catch (error) {
+      console.error("Error fetching results:", error);
+      setResults([]);
+    } finally {
+      setIsLoading(false); // Hide loading spinner
+    }
+    setHomePage(false);
+    setLookerStudio(false);
+  };
+
   const [tagLooker, setTagLooker] = useState(false);
   return (
     <div className="min-h-screen bg-gray-100">
       {isLoading && (
-        <div className="absolute inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
           <svg
             aria-hidden="true"
             className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -44,6 +61,7 @@ export default function ResultPage({
           <p className="text-blue-600 font-semibold mt-4">Loading...</p>
         </div>
       )}
+
       {/* navbar */}
       <NavBar
         homePage={isHomePage}
@@ -61,13 +79,13 @@ export default function ResultPage({
           {tagLooker === false ? (
             <>
               <button
-                className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2"
+                className="bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2 scale-110"
                 onClick={() => setTagLooker(false)}
               >
                 Normal Looker
               </button>
               <button
-                className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2"
+                className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2 scale-90"
                 onClick={() => setTagLooker(true)}
               >
                 Tag Looker
@@ -76,13 +94,13 @@ export default function ResultPage({
           ) : (
             <>
               <button
-                className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2"
+                className="bg-gray-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 mx-2 scale-90"
                 onClick={() => setTagLooker(false)}
               >
                 Normal Looker
               </button>
               <button
-                className="bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2"
+                className="bg-green-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 mx-2 scale-110"
                 onClick={() => setTagLooker(true)}
               >
                 Tag Looker
@@ -103,34 +121,33 @@ export default function ResultPage({
                     Interested Tags
                   </h2>
                   <div className="flex flex-wrap gap-2">
-                    {results[0].interested_tags &&
-                      results[0].interested_tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded hover:cursor-pointer"
-                          onClick={() => fetchSummary(tag)}
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    {results[0].interested_tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded hover:bg-blue-200 hover:text-blue-900 hover:scale-105 transition duration-100 cursor-pointer"
+                        onClick={() => handleTagsClick(tag)}
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-6">
-                  <h2 className="text-xl font-bold text-white">Articles</h2>
+                <h2 className="text-xl font-bold text-white  mb-4">Articles</h2>
+                <div className="grid grid-cols-3 gap-6">
                   {results[0].article_titles["csdn"] &&
                     results[0].article_titles["csdn"].map((article, index) => (
                       <a
                         key={index}
                         href={article[1]}
-                        className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
+                        className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <h3 className="text-lg font-bold text-gray-800 mb-2">
+                        <h2 className="text-lg font-bold text-gray-800 mb-2 ">
                           {article[0]}
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          👍: {article[2]}
+                        </h2>
+                        <p className="text-sm text-gray-600  flex flex-row">
+                          <FaRegThumbsUp />: {article[2]}
                         </p>
                       </a>
                     ))}
@@ -140,15 +157,15 @@ export default function ResultPage({
                         <a
                           key={index}
                           href={article[1]}
-                          className="bg-white shadow-lg rounded-lg p-4 flex justify-between"
+                          className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <h3 className="text-lg font-bold text-gray-800 mb-2">
+                          <h3 className="text-md font-bold text-gray-800 mb-2">
                             {article[0]}
                           </h3>
-                          <p className="text-sm text-gray-600">
-                            👍: {article[2]}
+                          <p className="text-sm text-gray-600 flex flex-row">
+                            <FaRegThumbsUp />: {article[2]}
                           </p>
                         </a>
                       )
@@ -159,15 +176,15 @@ export default function ResultPage({
                         <a
                           key={index}
                           href={article[1]}
-                          className="bg-white shadow-lg rounded-lg p-4 flex  justify-between"
+                          className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <h3 className="text-lg font-bold text-gray-800 mb-2">
                             {article[0]}
                           </h3>
-                          <p className="text-sm text-gray-600">
-                            👍: {article[2]}
+                          <p className="text-sm text-gray-600 flex flex-row">
+                            <FaRegThumbsUp /> : {article[2]}
                           </p>
                         </a>
                       )
@@ -191,7 +208,7 @@ export default function ResultPage({
             results[0].articles && (
               <div className="mb-6">
                 <h2 className="text-xl font-bold text-white mb-4">Articles</h2>
-                <div className="grid grid-cols-1 gap-6">
+                <div className="grid grid-cols-2 gap-6">
                   {results[0].articles.map((article, index) => (
                     <div
                       key={index}
@@ -204,8 +221,8 @@ export default function ResultPage({
                         <p className="text-sm text-gray-600 mb-1">
                           Source: {article.source}
                         </p>
-                        <p className="text-sm text-gray-600">
-                          👍: {article.likes}
+                        <p className="text-sm text-gray-600 flex flex-row">
+                          <FaRegThumbsUp />: {article.likes}
                         </p>
                       </div>
                     </div>

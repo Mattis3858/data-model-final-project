@@ -1,7 +1,7 @@
 import { base_url } from "./api_urls";
 
 export const fetchSummary = async (query) => {
-  console.log(query);
+  // console.log(query);
   const response = await fetch(`${base_url}summarize`, {
     method: "POST",
     headers: {
