@@ -1,7 +1,5 @@
-"use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import { fetchSummary } from "@/apis/fetch_api_functions";
+import { useTheme } from "@/themes/ThemeContext";
+import { createContext, useContext, useState, useEffect } from "react";
 
 export default function NavBar({
   homePage,
@@ -15,28 +13,25 @@ export default function NavBar({
 }) {
   const [query, setQuery] = useState("");
   const [placeholder, setPlaceholder] = useState("Search...");
+  const { darkMode, toggleDarkMode } = useTheme();
+
   const handlePageClick = () => {
     setLookerStudio(true);
     setHomePage(false);
   };
+
   const handleSearchButtonClick = async () => {
     if (query) {
       setIsLoading(true);
       try {
         const data = await fetchSummary(query);
-        // console.log(data);
-
-        //! for real api results
-        // setResults([data] || []);
-
-        //! for fake api result
         setResults([data] || []);
         setQuery("");
       } catch (error) {
         console.error("Error fetching results:", error);
-        setResults([]); // Clear results on error
+        setResults([]);
       } finally {
-        setIsLoading(false); // Hide loading spinner
+        setIsLoading(false);
       }
       setHomePage(false);
       setLookerStudio(false);
@@ -47,7 +42,11 @@ export default function NavBar({
   };
 
   return (
-    <nav className="w-full bg-blue-600 py-4 px-6 shadow-md flex flex-wrap justify-between items-center">
+    <nav
+      className={`w-full ${
+        darkMode ? "bg-gray-800" : "bg-blue-600"
+      } py-4 px-6 shadow-md flex flex-wrap justify-between items-center transition-colors duration-200`}
+    >
       <a
         className="text-white text-lg font-bold hover:cursor-pointer"
         onClick={() => {
@@ -61,25 +60,45 @@ export default function NavBar({
           <>
             <input
               type="text"
-              className="p-2 rounded-lg focus:outline-none w-full sm:w-auto text-slate-500"
+              className={`p-2 rounded-lg focus:outline-none w-full sm:w-auto ${
+                darkMode ? "bg-gray-700 text-white" : "bg-white text-slate-500"
+              }`}
               placeholder={placeholder}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <button
-              className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 w-full sm:w-auto"
+              className={`${
+                darkMode
+                  ? "bg-gray-700 text-white hover:bg-gray-600"
+                  : "bg-white text-blue-600 hover:bg-gray-200"
+              } px-4 py-2 rounded-lg font-semibold w-full sm:w-auto transition-colors duration-200`}
               onClick={handleSearchButtonClick}
-              disabled={isLoading} // Disable button during loading
+              disabled={isLoading}
             >
               {isLoading ? "Loading..." : "Search"}
             </button>
           </>
         )}
         <button
-          className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 w-full sm:w-auto"
+          className={`${
+            darkMode
+              ? "bg-gray-700 text-white hover:bg-gray-600"
+              : "bg-white text-blue-600 hover:bg-gray-200"
+          } px-4 py-2 rounded-lg font-semibold w-full sm:w-auto transition-colors duration-200`}
           onClick={handlePageClick}
         >
           技術溫度計
+        </button>
+        <button
+          className={`${
+            darkMode
+              ? "bg-gray-700 text-white hover:bg-gray-600"
+              : "bg-white text-blue-600 hover:bg-gray-200"
+          } px-4 py-2 rounded-lg font-semibold w-full sm:w-auto transition-colors duration-200`}
+          onClick={toggleDarkMode}
+        >
+          {darkMode ? "🌞 Light" : "🌙 Dark"}
         </button>
       </div>
     </nav>

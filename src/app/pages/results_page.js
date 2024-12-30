@@ -6,6 +6,7 @@ import {
   fetchSummary,
 } from "@/apis/fetch_api_functions";
 import { FaRegThumbsUp } from "react-icons/fa";
+import { useTheme } from "@/themes/ThemeContext";
 
 export default function ResultPage({
   isHomePage,
@@ -22,7 +23,7 @@ export default function ResultPage({
   const handleCardOnClick = (href) => {
     window.open(href, "_blank");
   };
-
+  const { darkMode } = useTheme();
   const handleTagsClick = async (selected_tags, sources) => {
     // console.log(selected_tags);
     setIsLoading(true);
@@ -38,13 +39,21 @@ export default function ResultPage({
     setHomePage(false);
     setLookerStudio(false);
   };
-  const formattedContent = results[0].summarized_content.replace(
-    /<a /g,
-    `<a class="custom-link inline-block bg-white px-1 text-gray-600 rounded-lg font-semibold shadow-md hover:bg-gray-200 hover:shadow-lg transition-all duration-200" `
-  );
+  let formattedContent;
+  if (results[0]) {
+    formattedContent = results[0].summarized_content.replace(
+      /<a /g,
+      `<a class="custom-link inline-block bg-white px-1 text-gray-600 rounded-lg font-semibold shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-200" `
+    );
+  }
+
   const [tagLooker, setTagLooker] = useState(false);
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-gray-900" : "bg-gray-100"
+      } transition-colors duration-200`}
+    >
       {isLoading && (
         <div className="fixed inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
           <svg

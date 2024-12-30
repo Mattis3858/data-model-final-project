@@ -3,6 +3,7 @@ import Select from "react-select";
 import InputBar from "../components/input_bar";
 import NavBar from "../components/navbar";
 import makeAnimated from "react-select/animated";
+import { useTheme } from "@/themes/ThemeContext";
 import {
   fetch_get_today_tags,
   fetch_selected_tags_summary,
@@ -25,6 +26,7 @@ export default function HomePage({
   isLoading,
   setIsLoading,
 }) {
+  const { darkMode } = useTheme();
   const [placeholder, setPlaceholder] = useState(
     "Type your search query here..."
   );
@@ -134,19 +136,52 @@ export default function HomePage({
     control: (base) => ({
       ...base,
       minWidth: "200px",
+      background: darkMode ? "#374151" : "white",
+      borderColor: darkMode ? "#4B5563" : "#E5E7EB",
     }),
     menu: (provided) => ({
       ...provided,
-      zIndex: 9999, // 確保下拉選單顯示在其他元素上方
+      zIndex: 9999,
+      background: darkMode ? "#374151" : "white",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? darkMode
+          ? "#4B5563"
+          : "#2563EB"
+        : darkMode
+        ? "#374151"
+        : "white",
+      color: darkMode ? "white" : "black",
+      "&:hover": {
+        backgroundColor: darkMode ? "#4B5563" : "#E5E7EB",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: darkMode ? "white" : "black",
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: darkMode ? "#4B5563" : "#E5E7EB",
+    }),
+    multiValueLabel: (provided) => ({
+      ...provided,
+      color: darkMode ? "white" : "black",
     }),
   };
   useEffect(() => {
     get_today_tags();
   }, []);
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-gray-900" : "bg-gray-100"
+      } flex flex-col items-center transition-colors duration-200`}
+    >
       {isLoading && (
-        <div className="fixed inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-slate-500 bg-opacity-80 z-50 flex flex-col items-center justify-center">
           <svg
             aria-hidden="true"
             className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -163,7 +198,7 @@ export default function HomePage({
               fill="currentFill"
             />
           </svg>
-          <p className="text-blue-600 font-semibold mt-4">Loading...</p>
+          <p className="text-white font-semibold mt-4 text-lg">Loading...</p>
         </div>
       )}
 
@@ -178,10 +213,18 @@ export default function HomePage({
         setIsLoading={setIsLoading}
       />
       <header className="text-center mb-2 pt-10 sm:pt-10 md:pt-20 lg:pt-24 2xl:pt-44">
-        <h1 className="text-3xl sm:text-4xl font-bold text-blue-600">
+        <h1
+          className={`text-3xl sm:text-4xl font-bold ${
+            darkMode ? "text-blue-400" : "text-blue-600"
+          }`}
+        >
           Knowledge Waves
         </h1>
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p
+          className={`${
+            darkMode ? "text-gray-300" : "text-gray-600"
+          } text-sm sm:text-base`}
+        >
           Find the TECH information you need quickly and easily!
         </p>
       </header>
@@ -197,16 +240,26 @@ export default function HomePage({
           </button>
         </div>
         {searchMode === 0 ? (
-          <div className="flex flex-col sm:flex-row items-center bg-white shadow-lg rounded-lg overflow-hidden">
+          <div
+            className={`flex flex-col sm:flex-row items-center ${
+              darkMode ? "bg-gray-800" : "bg-white"
+            } shadow-lg rounded-lg overflow-hidden transition-colors duration-200`}
+          >
             <input
               type="text"
-              className="flex-grow w-full p-4 text-gray-800 focus:outline-none"
+              className={`flex-grow w-full p-4 ${
+                darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+              } focus:outline-none transition-colors duration-200`}
               placeholder={placeholder}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <button
-              className="w-full sm:w-auto px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none"
+              className={`w-full sm:w-auto px-6 py-4 ${
+                darkMode
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-blue-600 hover:bg-blue-500"
+              } text-white font-semibold focus:outline-none transition-colors duration-200`}
               onClick={handleSearchButtonClick}
               disabled={isLoading}
             >
@@ -214,7 +267,11 @@ export default function HomePage({
             </button>
           </div>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center bg-white shadow-lg rounded-lg relative">
+          <div
+            className={`flex flex-col sm:flex-row items-center ${
+              darkMode ? "bg-gray-800" : "bg-white"
+            } shadow-lg rounded-lg relative transition-colors duration-200`}
+          >
             <Select
               isMulti
               closeMenuOnSelect={false}
@@ -226,7 +283,11 @@ export default function HomePage({
               styles={customStyles}
             />
             <button
-              className="w-full sm:w-auto px-6 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-500 focus:outline-none rounded-r-lg"
+              className={`w-full sm:w-auto px-6 py-4 ${
+                darkMode
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-blue-600 hover:bg-blue-500"
+              } text-white font-semibold focus:outline-none rounded-r-lg transition-colors duration-200`}
               onClick={handleMultiSelectSearch}
               disabled={isLoading}
             >
@@ -236,70 +297,55 @@ export default function HomePage({
         )}
       </div>
       <div className="flex flex-row items-center mt-4 space-x-4">
-        <button
-          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 ${
-            selectedSources.includes("csdn")
-              ? "bg-gray-600 text-white scale-105"
-              : "bg-gray-300 text-black hover:bg-gray-300"
-          }`}
-          onClick={() => handleButtonClick("csdn")}
-        >
-          CSDN
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 ${
-            selectedSources.includes("github")
-              ? "bg-gray-600 text-white scale-105"
-              : "bg-gray-300 text-black hover:bg-gray-300"
-          }`}
-          onClick={() => handleButtonClick("github")}
-        >
-          GitHub
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 ${
-            selectedSources.includes("medium")
-              ? "bg-gray-600 text-white  scale-105"
-              : "bg-gray-300 text-black hover:bg-gray-300"
-          }`}
-          onClick={() => handleButtonClick("medium")}
-        >
-          Medium
-        </button>
+        {["csdn", "github", "medium"].map((source) => (
+          <button
+            key={source}
+            className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 transition-all duration-200 ${
+              selectedSources.includes(source)
+                ? darkMode
+                  ? "bg-gray-700 text-white scale-105"
+                  : "bg-gray-700 text-white scale-105"
+                : darkMode
+                ? "bg-gray-400 text-white hover:bg-gray-600"
+                : "bg-gray-300 text-black hover:bg-gray-400"
+            }`}
+            onClick={() => handleButtonClick(source)}
+          >
+            {source.toUpperCase()}
+          </button>
+        ))}
       </div>
       <div className="mt-4 grid grid-cols-2 gap-4 w-full max-w-md sm:max-w-lg md:max-w-2xl px-4">
-        <button
-          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
-          onClick={() => {
-            handleSQLButtonClick(fetch_shortcut_question1());
-          }}
-        >
-          今天最受歡迎的文章前五篇文章分別為何？
-        </button>
-        <button
-          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
-          onClick={() => {
-            handleSQLButtonClick(fetch_shortcut_question2());
-          }}
-        >
-          今天內關於「AI」的文章中，點讚數最高的三篇文章標題是什麼？
-        </button>
-        <button
-          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
-          onClick={() => {
-            handleSQLButtonClick(fetch_shortcut_question3());
-          }}
-        >
-          對所有來源今日的文章關於 LLM RAG 的內容進行介紹
-        </button>
-        <button
-          className="p-4 bg-gray-400 text-white rounded-lg shadow-lg hover:bg-gray-500"
-          onClick={() => {
-            handleSQLButtonClick(fetch_shortcut_question4());
-          }}
-        >
-          目前資料中來自「medium」的五篇最熱門文章是什麼？
-        </button>
+        {[
+          {
+            text: "今天最受歡迎的文章前五篇文章分別為何？",
+            action: () => handleSQLButtonClick(fetch_shortcut_question1()),
+          },
+          {
+            text: "今天內關於「AI」的文章中，點讚數最高的三篇文章標題是什麼？",
+            action: () => handleSQLButtonClick(fetch_shortcut_question2()),
+          },
+          {
+            text: "對所有來源今日的文章關於 LLM RAG 的內容進行介紹",
+            action: () => handleSQLButtonClick(fetch_shortcut_question3()),
+          },
+          {
+            text: "目前資料中來自「medium」的五篇最熱門文章是什麼？",
+            action: () => handleSQLButtonClick(fetch_shortcut_question4()),
+          },
+        ].map((button, index) => (
+          <button
+            key={index}
+            className={`p-4 ${
+              darkMode
+                ? "bg-gray-700 text-white hover:bg-gray-600"
+                : "bg-gray-400 text-white hover:bg-gray-500"
+            } rounded-lg shadow-lg transition-colors duration-200`}
+            onClick={button.action}
+          >
+            {button.text}
+          </button>
+        ))}
       </div>
     </div>
   );
