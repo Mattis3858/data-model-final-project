@@ -93,7 +93,7 @@ export const fetchSummary = async (
 export const fetch_shortcut_question1 = async () => {
   const response = await fetch(`${base_url}shortcut/question1`);
   const result = await response.json();
-  console.log(result);
+  // console.log(result);
   return result;
 };
 export const fetch_shortcut_question2 = async () => {
@@ -122,8 +122,8 @@ export const fetch_selected_tags_summary = async (
   selected_tags,
   selectedSources = ["github", "medium", "csdn"]
 ) => {
-  console.log(selected_tags);
-  console.log(selectedSources);
+  // console.log(selected_tags);
+  // console.log(selectedSources);
   let response;
   if (typeof selected_tags === "string") {
     response = await fetch(`${base_url}selected_tags_summarize`, {

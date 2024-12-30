@@ -24,7 +24,7 @@ export default function ResultPage({
   };
 
   const handleTagsClick = async (selected_tags, sources) => {
-    console.log(selected_tags);
+    // console.log(selected_tags);
     setIsLoading(true);
     try {
       const data = await fetch_selected_tags_summary(selected_tags, sources);
@@ -38,7 +38,10 @@ export default function ResultPage({
     setHomePage(false);
     setLookerStudio(false);
   };
-
+  const formattedContent = results[0].summarized_content.replace(
+    /<a /g,
+    `<a class="custom-link inline-block bg-white px-1 text-gray-600 rounded-lg font-semibold shadow-md hover:bg-gray-200 hover:shadow-lg transition-all duration-200" `
+  );
   const [tagLooker, setTagLooker] = useState(false);
   return (
     <div className="min-h-screen bg-gray-100">
@@ -215,9 +218,10 @@ export default function ResultPage({
                   <h2 className="text-xl font-bold text-white mb-4">
                     Summarized Content
                   </h2>
-                  <p className="text-white whitespace-pre-line">
-                    {results[0].summarized_content}
-                  </p>
+                  <div
+                    className="text-white whitespace-pre-line"
+                    dangerouslySetInnerHTML={{ __html: formattedContent }}
+                  ></div>
                 </div>
               </div>
             )}
@@ -253,9 +257,10 @@ export default function ResultPage({
                   <h2 className="text-xl font-bold text-white mb-4">
                     Summarized Content
                   </h2>
-                  <p className="text-white whitespace-pre-line">
-                    {results[0].summarized_content}
-                  </p>
+                  <div
+                    className="text-white whitespace-pre-line"
+                    dangerouslySetInnerHTML={{ __html: formattedContent }}
+                  ></div>
                 </div>
               </div>
             )}
