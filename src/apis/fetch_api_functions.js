@@ -4,8 +4,8 @@ export const fetchSummary = async (
   query,
   selectedSources = ["github", "medium", "csdn"]
 ) => {
-  console.log(query);
-  console.log(selectedSources);
+  // console.log(query);
+  // console.log(selectedSources);
   const response = await fetch(`${base_url}text_search_summarize`, {
     method: "POST",
     headers: {
