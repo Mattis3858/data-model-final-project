@@ -41,7 +41,7 @@ const ArticleCard = ({ title, url, source, likes }) => (
     <div className="mt-auto">
       <p className="text-sm text-gray-600 mb-2">{source}</p>
       <p className="text-sm text-gray-600 flex flex-row items-center">
-        <FaRegThumbsUp className="mr-1" /> {likes}
+        <FaRegThumbsUp className="mr-1" /> {likes || 0}
       </p>
     </div>
   </a>
