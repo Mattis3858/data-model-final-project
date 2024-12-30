@@ -41,7 +41,7 @@ export default function ResultPage({
   };
   let formattedContent;
   if (results[0]) {
-    formattedContent = results[0].summarized_content.replace(
+    formattedContent = results[0].summarized_content?.replace(
       /<a /g,
       `<a class="custom-link inline-block bg-white px-1 text-gray-600 rounded-lg font-semibold shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-200" `
     );
@@ -55,7 +55,7 @@ export default function ResultPage({
       } transition-colors duration-200`}
     >
       {isLoading && (
-        <div className="fixed inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-slate-500 bg-opacity-80 z-50 flex flex-col items-center justify-center">
           <svg
             aria-hidden="true"
             className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -72,7 +72,7 @@ export default function ResultPage({
               fill="currentFill"
             />
           </svg>
-          <p className="text-blue-600 font-semibold mt-4">Loading...</p>
+          <p className="text-white font-semibold mt-4 text-lg">Loading...</p>
         </div>
       )}
 
@@ -159,7 +159,7 @@ export default function ResultPage({
                         href={article[1]}
                         className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                         target="_blank"
-                        rel="noopener noreferrer"
+                        // rel="noopener noreferrer"
                       >
                         <div className="flex-grow">
                           <h2 className="text-lg font-bold text-gray-600 mb-2">
@@ -182,7 +182,7 @@ export default function ResultPage({
                           href={article[1]}
                           className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                           target="_blank"
-                          rel="noopener noreferrer"
+                          // rel="noopener noreferrer"
                         >
                           <div className="flex-grow">
                             <h3 className="text-md font-bold text-gray-600 mb-2">
@@ -206,7 +206,7 @@ export default function ResultPage({
                           href={article[1]}
                           className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                           target="_blank"
-                          rel="noopener noreferrer"
+                          // rel="noopener noreferrer"
                         >
                           <div className="flex-grow">
                             <h3 className="text-lg font-bold text-gray-600 mb-2">
@@ -242,9 +242,11 @@ export default function ResultPage({
                 <h2 className="text-xl font-bold text-white mb-4">Articles</h2>
                 <div className="grid grid-cols-2 gap-6">
                   {results[0].articles.map((article, index) => (
-                    <div
+                    <a
                       key={index}
-                      className="bg-white shadow-lg rounded-lg p-4 flex flex-col h-full"
+                      href={article.url}
+                      target="_blank"
+                      className="bg-white shadow-lg rounded-lg p-4 transform hover:scale-110 hover:shadow-xl transition duration-50 flex flex-col h-full"
                     >
                       <div className="flex-grow">
                         <h3 className="text-lg font-bold text-gray-800 mb-2">
@@ -259,7 +261,7 @@ export default function ResultPage({
                           <FaRegThumbsUp className="mr-1" /> {article.likes}
                         </p>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
                 <div className="mb-6 mt-6">

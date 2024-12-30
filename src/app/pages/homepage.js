@@ -54,8 +54,10 @@ export default function HomePage({
     if (query) {
       setIsLoading(true);
       try {
+        console.log(query);
+        console.log(selectedSources);
         const data = await fetchSummary(query, selectedSources);
-        console.log(data);
+        // console.log(data);
 
         //! for real api results
         setResults([data] || []);
@@ -173,7 +175,8 @@ export default function HomePage({
   };
   useEffect(() => {
     get_today_tags();
-  }, []);
+    console.log(selectedSources);
+  }, [selectedSources]);
   return (
     <div
       className={`min-h-screen ${
