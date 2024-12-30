@@ -177,7 +177,7 @@ export default function HomePage({
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      <header className="text-center mb-2 pt-10 sm:pt-0 md:pt-24 lg:pt-32 2xl:pt-48">
+      <header className="text-center mb-2 pt-10 sm:pt-10 md:pt-20 lg:pt-24 2xl:pt-44">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-600">
           Knowledge Waves
         </h1>

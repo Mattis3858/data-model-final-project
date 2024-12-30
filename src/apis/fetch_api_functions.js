@@ -124,16 +124,31 @@ export const fetch_selected_tags_summary = async (
 ) => {
   console.log(selected_tags);
   console.log(selectedSources);
-  const response = await fetch(`${base_url}selected_tags_summarize`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      selected_tags: selected_tags,
-      sources: selectedSources,
-    }),
-  });
+  let response;
+  if (typeof selected_tags === "string") {
+    response = await fetch(`${base_url}selected_tags_summarize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        selected_tags: [selected_tags],
+        sources: selectedSources,
+      }),
+    });
+  } else {
+    response = await fetch(`${base_url}selected_tags_summarize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        selected_tags: selected_tags,
+        sources: selectedSources,
+      }),
+    });
+  }
+
   const result = await response.json();
   return result;
 };

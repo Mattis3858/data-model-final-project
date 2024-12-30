@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import NavBar from "../components/navbar";
-import { fetchSummary } from "@/apis/fetch_api_functions";
+import {
+  fetch_selected_tags_summary,
+  fetchSummary,
+} from "@/apis/fetch_api_functions";
 import { FaRegThumbsUp } from "react-icons/fa";
 
 export default function ResultPage({
@@ -20,10 +23,11 @@ export default function ResultPage({
     window.open(href, "_blank");
   };
 
-  const handleTagsClick = async (tag) => {
+  const handleTagsClick = async (selected_tags, sources) => {
+    console.log(selected_tags);
     setIsLoading(true);
     try {
-      const data = await fetchSummary(tag);
+      const data = await fetch_selected_tags_summary(selected_tags, sources);
       setResults([data] || []);
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -125,7 +129,9 @@ export default function ResultPage({
                       <span
                         key={index}
                         className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded hover:bg-blue-200 hover:text-blue-900 hover:scale-105 transition duration-100 cursor-pointer"
-                        onClick={() => handleTagsClick(tag)}
+                        onClick={() =>
+                          handleTagsClick(tag, ["github", "medium", "csdn"])
+                        }
                       >
                         {tag}
                       </span>
