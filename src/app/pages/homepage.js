@@ -93,10 +93,12 @@ const SourceToggleButtons = ({ selectedSources, onSourceToggle, darkMode }) => (
       <button
         key={source}
         className={`px-4 py-2 rounded-lg font-semibold focus:outline-none hover:scale-105 transition-all duration-200 ${
-          selectedSources.includes(source)
+          darkMode
+            ? selectedSources.includes(source)
+              ? "bg-gray-400 text-white scale-105"
+              : "bg-gray-700 text-white hover:bg-gray-600"
+            : selectedSources.includes(source)
             ? "bg-gray-700 text-white scale-105"
-            : darkMode
-            ? "bg-gray-400 text-white hover:bg-gray-600"
             : "bg-gray-300 text-black hover:bg-gray-400"
         }`}
         onClick={() => onSourceToggle(source)}
