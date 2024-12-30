@@ -1,3 +1,4 @@
+import { fetchSummary } from "@/apis/fetch_api_functions";
 import { useTheme } from "@/themes/ThemeContext";
 import { createContext, useContext, useState, useEffect } from "react";
 
