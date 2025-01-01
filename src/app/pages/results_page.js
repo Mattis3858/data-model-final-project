@@ -43,7 +43,7 @@ export default function ResultPage({
   if (results[0]) {
     formattedContent = results[0].summarized_content?.replace(
       /<a /g,
-      `<a class="custom-link inline-block bg-white px-1 text-gray-600 rounded-lg font-semibold shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-200" `
+      `<a target="_blank" class="custom-link inline-block bg-white px-1 text-gray-600 rounded-lg font-semibold shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-200" `
     );
   }
 
