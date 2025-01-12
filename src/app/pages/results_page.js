@@ -280,7 +280,7 @@ export default function ResultPage({
             <div className="iframe-container flex items-center justify-center">
               <iframe
                 width="1500"
-                height="800"
+                height="1200"
                 src="https://lookerstudio.google.com/embed/reporting/52c37a61-a7fe-4d8d-9d14-883054ce2290/page/k0eaE"
                 style={{ border: 0 }}
                 allowFullScreen
