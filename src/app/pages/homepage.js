@@ -197,7 +197,7 @@ export default function HomePage({
 
   const handleSearchButtonClick = async () => {
     if (!query) {
-      setPlaceholder("Please type some shit!");
+      setPlaceholder("Please type some something first!");
       return;
     }
 
