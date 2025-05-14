@@ -139,6 +139,7 @@ export default function HomePage({
   isLoading,
   setIsLoading,
 }) {
+  const isBackendOperational = false;
   const { darkMode } = useTheme();
   const [placeholder, setPlaceholder] = useState(
     "Type your search query here..."
@@ -196,6 +197,11 @@ export default function HomePage({
   );
 
   const handleSearchButtonClick = async () => {
+    if (!isBackendOperational) {
+      console.warn("Backend is not operational. Search request aborted.");
+      alert("Service temporarily unavailable.");
+      return;
+    }
     if (!query) {
       setPlaceholder("Please type some something first!");
       return;
@@ -239,6 +245,10 @@ export default function HomePage({
   };
 
   const handleShortcutQuestion = async (questionFn) => {
+    if (!isBackendOperational) {
+      alert("Service temporarily unavailable.");
+      return;
+    }
     setIsLoading(true);
     try {
       const data = await questionFn();
