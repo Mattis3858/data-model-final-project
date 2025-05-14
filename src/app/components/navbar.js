@@ -44,7 +44,7 @@ export default function NavBar({
       setLookerStudio(false);
       setPlaceholder("Search...");
     } else {
-      setPlaceholder("Please type some shit!");
+      setPlaceholder("Please type something first!");
     }
   };
 
