@@ -12,6 +12,7 @@ export default function NavBar({
   isLoading,
   setIsLoading,
 }) {
+  const isBackendOperational = false;
   const [query, setQuery] = useState("");
   const [placeholder, setPlaceholder] = useState("Search...");
   const { darkMode, toggleDarkMode } = useTheme();
@@ -22,6 +23,11 @@ export default function NavBar({
   };
 
   const handleSearchButtonClick = async () => {
+    if (!isBackendOperational) {
+      console.warn("Backend is not operational. Search request aborted.");
+      alert("Service temporarily unavailable.");
+      return;
+    }
     if (query) {
       setIsLoading(true);
       try {
